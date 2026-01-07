@@ -1,11 +1,11 @@
 import { NextResponse, NextRequest } from "next/server";
 
-const BASE_API_URL = "https://pokeapi.co/api/v2"; // ปลายทางจริง
+// เปลี่ยน url ให้สอดคล้องกับ API ที่ต้องการ
+const BASE_API_URL = "https://pokeapi.co/api/v2";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
-  // ดึง pathname ออกมา (เช่น /pokemon/ditto)
   const pathname = searchParams.get("pathname");
 
   if (!pathname) {
@@ -15,12 +15,9 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // ✅ สร้าง URL ปลายทาง พร้อมส่งต่อ Query Params อื่นๆ (ถ้ามี)
-  // ลบ 'pathname' ออกจาก params ก่อนส่งต่อ เพราะปลายทางไม่รู้จัก parameter นี้
   searchParams.delete("pathname");
   const queryString = searchParams.toString();
 
-  // ถ้ายิงมาแบบ ?pathname=/pokemon&limit=10 -> ปลายทางจะเป็น .../pokemon?limit=10
   const targetUrl = `${BASE_API_URL}${pathname}${
     queryString ? `?${queryString}` : ""
   }`;
