@@ -13,6 +13,7 @@ import Image from "next/image";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
+import PokemonCard from "./_components/pokemon-card";
 
 export default function Home() {
   const { setTheme } = useTheme();
@@ -42,6 +43,7 @@ export default function Home() {
           </DropdownMenuContent>
         </DropdownMenu>
         <Button>Click me</Button>
+        <PokemonCard />
         <Image
           className="dark:invert"
           src="/next.svg"

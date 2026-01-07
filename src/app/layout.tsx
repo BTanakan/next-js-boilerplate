@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import Navbar from "@/components/nav.bar";
+import QueryProviders from "../../providers/query-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,19 +34,21 @@ export default async function RootLayout({
       <html lang={locale} suppressHydrationWarning>
         <head />
         <body>
-          <NextIntlClientProvider messages={messages}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <div className="">
-                <Navbar />
-                {children}
-              </div>
-            </ThemeProvider>
-          </NextIntlClientProvider>
+          <QueryProviders>
+            <NextIntlClientProvider messages={messages}>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <div className="">
+                  <Navbar />
+                  {children}
+                </div>
+              </ThemeProvider>
+            </NextIntlClientProvider>
+          </QueryProviders>
         </body>
       </html>
     </>
